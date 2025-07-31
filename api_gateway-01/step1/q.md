@@ -20,3 +20,52 @@ Your goal is to replace the `nginx-ingress` with the equivalent Gateway API reso
 You can check if the new setup is working by using `curl` on the Gateway's public IP address.
 
 Once you have completed these steps, your environment will be validated.
+
+
+<details>
+<summary><strong>Show Solution</strong></summary>
+
+**Gateway resource (`my-gateway.yaml`):**
+```yaml
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: Gateway
+metadata:
+  name: my-gateway
+spec:
+  gatewayClassName: <your-gateway-class>
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+```
+
+**HTTPRoute resource (`nginx-httproute.yaml`):**
+```yaml
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: nginx-httproute
+spec:
+  parentRefs:
+    - name: my-gateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: nginx-service
+          port: 80
+```
+
+**Delete the old Ingress:**
+```bash
+kubectl delete ingress nginx-ingress
+```
+
+**Apply the new resources:**
+```bash
+kubectl apply -f my-gateway.yaml
+kubectl apply -f nginx-httproute.yaml
+```
+</details>

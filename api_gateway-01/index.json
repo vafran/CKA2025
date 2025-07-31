@@ -4,6 +4,10 @@
   "icon": "https://killercoda.com/img/ingress-to-gateway-api.png",
   "difficulty": "medium",
   "time": "15 minutes",
+  "intro": {
+    "text": "intro.md",
+    "background": "background.sh"
+  },
   "steps": [
     {
       "title": "Migrating to the Gateway API",
@@ -12,10 +16,6 @@
       "verify": "step1/v.sh"
     }
   ],
-  "intro": {
-    "text": "intro.md",
-    "background": "background.sh"
-  },
   "finish": {
     "text": "finish.md"
   },
