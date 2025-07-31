@@ -4,22 +4,20 @@
   "icon": "https://killercoda.com/img/ingress-to-gateway-api.png",
   "difficulty": "medium",
   "time": "15 minutes",
-  "details": {
-    "steps": [
-      {
-        "title": "Migrating to the Gateway API",
-        "description": "Examine a running Ingress-based application and replace its routing with the Gateway API.",
-        "text": "step1/q.md",
-        "verify": "step1/v.sh"
-      }
-    ],
-    "intro": {
-      "text": "intro.md",
-      "background": "background.sh"
-    },
-    "finish": {
-      "text": "finish.md"
+  "steps": [
+    {
+      "title": "Migrating to the Gateway API",
+      "description": "Examine a running Ingress-based application and replace its routing with the Gateway API.",
+      "text": "step1/q.md",
+      "verify": "step1/v.sh"
     }
+  ],
+  "intro": {
+    "text": "intro.md",
+    "background": "background.sh"
+  },
+  "finish": {
+    "text": "finish.md"
   },
   "backend": {
     "imageid": "kubernetes-kubeadm-2nodes"
