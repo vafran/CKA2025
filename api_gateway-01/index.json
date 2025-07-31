@@ -1,0 +1,37 @@
+{
+  "title": "Upgrade to Gateway API",
+  "description": "Learn to migrate a Kubernetes Ingress resource to the more powerful Gateway API.",
+  "icon": "https://killercoda.com/img/ingress-to-gateway-api.png",
+  "difficulty": "medium",
+  "time": "15 minutes",
+  "details": {
+    "steps": [
+      {
+        "title": "Migrating to the Gateway API",
+        "description": "Examine a running Ingress-based application and replace its routing with the Gateway API.",
+        "text": "step1/q.md",
+        "verify": "step1/v.sh"
+      }
+    ],
+    "intro": {
+      "text": "intro.md",
+      "courseData": "background.sh"
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "environment": {
+    "environments": [
+      {
+        "os": "ubuntu",
+        "arch": "amd64",
+        "image": "kind-k8s:1.29"
+      }
+    ]
+  },
+  "backend": {
+    "kind": "kind",
+    "image": "kind-k8s:1.29"
+  }
+}
