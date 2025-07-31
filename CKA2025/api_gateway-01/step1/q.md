@@ -33,7 +33,7 @@ kind: Gateway
 metadata:
   name: my-gateway
 spec:
-  gatewayClassName: <your-gateway-class>
+  gatewayClassName: my-gateway-class
   listeners:
     - name: http
       protocol: HTTP

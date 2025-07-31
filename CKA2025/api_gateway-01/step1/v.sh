@@ -20,7 +20,7 @@ if ! kubectl get httproute nginx-httproute -o json | grep '"name": "my-gateway"'
     exit 1
 fi
 
-if ! kubectl get httproute nginx-httproute -o json | grep '"path": "/"' &> /dev/null; then
+if ! kubectl get httproute nginx-httproute -ojsonpath='{.spec.rules[*].matches[*].path.value}' | grep / &> /dev/null; then
     echo "HTTPRoute does not match path '/'."
     exit 1
 fi
