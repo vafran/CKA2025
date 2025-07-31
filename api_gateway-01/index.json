@@ -15,23 +15,13 @@
     ],
     "intro": {
       "text": "intro.md",
-      "courseData": "background.sh"
+      "background": "background.sh"
     },
     "finish": {
       "text": "finish.md"
     }
   },
-  "environment": {
-    "environments": [
-      {
-        "os": "ubuntu",
-        "arch": "amd64",
-        "image": "kind-k8s:1.29"
-      }
-    ]
-  },
   "backend": {
-    "kind": "kind",
-    "image": "kind-k8s:1.29"
+    "imageid": "kubernetes-kubeadm-2nodes"
   }
 }
