@@ -5,6 +5,11 @@ if ! kubectl get gateway my-gateway &> /dev/null; then
     exit 1
 fi
 
+if ! kubectl get gateway my-gateway -o json | grep '"gatewayClassName": "my-gateway-class"' &> /dev/null; then
+    echo "'my-gateway' does not use 'my-gateway-class' as gatewayClassName."
+    exit 1
+fi
+
 if ! kubectl get httproute nginx-httproute &> /dev/null; then
     echo "'nginx-httproute' HTTPRoute resource not found."
     exit 1

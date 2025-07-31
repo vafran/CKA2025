@@ -8,7 +8,7 @@ For this question, please set this context (In exam, diff cluster name)
 Your goal is to replace the `nginx-ingress` with the equivalent Gateway API resources.
 
 1.  **Create a `Gateway` resource named `my-gateway`.**  
-    Use the provided `gateway-class`. This resource represents the entry point for traffic.
+    Use the provided `my-gateway-class`. This resource represents the entry point for traffic.
 
 2.  **Create an `HTTPRoute` resource named `nginx-httproute`.**  
     Attach the `HTTPRoute` to your new `my-gateway`.  

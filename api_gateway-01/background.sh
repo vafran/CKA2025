@@ -68,6 +68,16 @@ spec:
               number: 80
 EOF
 
+echo "--- Creating GatewayClass ---"
+cat <<EOF | kubectl apply -f -
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: GatewayClass
+metadata:
+  name: my-gateway-class
+spec:
+  controllerName: "k8s.io/ingress-nginx"
+EOF
+
 sleep 5
 echo "--- Initial setup complete! ---"
 echo "You now have a running Nginx application exposed via an Ingress resource."
