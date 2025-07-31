@@ -1,18 +1,12 @@
 #!/bin/bash
 
-# This script sets up the initial environment for the scenario.
-# It creates a simple Nginx deployment, a service, and an Ingress resource.
-
 echo "--- Installing Gateway API CRDs ---"
 kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/standard-install.yaml
 
-# Wait for the CRDs to be available
 sleep 10
-
 echo "--- Installing NGINX Ingress Controller ---"
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/cloud/deploy.yaml
 
-# Wait for the ingress controller to be ready
 kubectl wait --namespace ingress-nginx \
   --for=condition=ready pod \
   --selector=app.kubernetes.io/component=controller \
@@ -74,9 +68,7 @@ spec:
               number: 80
 EOF
 
-# Give a moment for all resources to become available
 sleep 5
-
 echo "--- Initial setup complete! ---"
 echo "You now have a running Nginx application exposed via an Ingress resource."
 echo "Use 'kubectl get all' to see the resources."
