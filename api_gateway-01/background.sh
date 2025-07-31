@@ -9,13 +9,14 @@ kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/downloa
 # Wait for the CRDs to be available
 sleep 10
 
-echo "--- Installing Contour as the Gateway API implementation ---"
-kubectl apply -f https://projectcontour.io/quickstart/contour-gateway-provisioner.yaml
-kubectl apply -f https://projectcontour.io/quickstart/gateway-provisioner-gatewayclass.yaml
+echo "--- Installing NGINX Ingress Controller ---"
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.10.1/deploy/static/provider/cloud/deploy.yaml
 
-# Wait for Contour to be ready
-echo "Waiting for Contour pods to be ready..."
-kubectl wait --for=condition=ready pod -l app=contour --timeout=300s -n projectcontour
+# Wait for the ingress controller to be ready
+kubectl wait --namespace ingress-nginx \
+  --for=condition=ready pod \
+  --selector=app.kubernetes.io/component=controller \
+  --timeout=180s
 
 echo "--- Creating the initial Nginx application ---"
 cat <<EOF | kubectl apply -f -
