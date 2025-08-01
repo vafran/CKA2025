@@ -36,6 +36,9 @@ spec:
   controllerName: "nginx.org/gateway-controller"
 EOF
 
+# Wait for the GatewayClass to be accepted by the controller
+kubectl wait --for=condition=Accepted gatewayclass nginx-gateway-class --timeout=120s
+
 # Give a moment for all resources to become available
 sleep 5
 
