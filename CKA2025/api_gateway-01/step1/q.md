@@ -8,11 +8,11 @@ For this question, please set this context (In exam, diff cluster name)
 
 Your goal is to replace the `nginx-ingress` with the equivalent Gateway API resources.
 
-1.  **Create a `Gateway` resource named `my-gateway`.**  
-    Use the provided `my-gateway-class`. This resource represents the entry point for traffic.
+1.  **Create a `Gateway` resource named `nginx-gateway`.**  
+    Use the provided `nginx-gateway-class`. This resource represents the entry point for traffic.
 
 2.  **Create an `HTTPRoute` resource named `nginx-httproute`.**  
-    Attach the `HTTPRoute` to your new `my-gateway`.  
+    Attach the `HTTPRoute` to your new `nginx-gateway`.  
     Define a rule that matches all traffic (`/`) and routes it to the `nginx-service` on port `80`.
 
 3.  **Delete the old Ingress resource (`nginx-ingress`).**  
@@ -26,14 +26,14 @@ Once you have completed these steps, your environment will be validated.
 <details>
 <summary><strong>Show Solution</strong></summary>
 
-**Gateway resource (`my-gateway.yaml`):**
+**Gateway resource (`nginx-gateway.yaml`):**
 ```yaml
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
-  name: my-gateway
+  name: nginx-gateway
 spec:
-  gatewayClassName: my-gateway-class
+  gatewayClassName: nginx-gateway-class
   listeners:
     - name: http
       protocol: HTTP
@@ -48,7 +48,7 @@ metadata:
   name: nginx-httproute
 spec:
   parentRefs:
-    - name: my-gateway
+    - name: nginx-gateway
   rules:
     - matches:
         - path:
@@ -59,14 +59,14 @@ spec:
           port: 80
 ```
 
+**Apply the new resources:**
+```bash
+kubectl apply -f nginx-gateway.yaml
+kubectl apply -f nginx-httproute.yaml
+```
+
 **Delete the old Ingress:**
 ```bash
 kubectl delete ingress nginx-ingress
-```
-
-**Apply the new resources:**
-```bash
-kubectl apply -f my-gateway.yaml
-kubectl apply -f nginx-httproute.yaml
 ```
 </details>

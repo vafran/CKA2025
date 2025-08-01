@@ -73,7 +73,7 @@ cat <<EOF | kubectl apply -f -
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: GatewayClass
 metadata:
-  name: my-gateway-class
+  name: nginx-gateway-class
 spec:
   controllerName: "k8s.io/ingress-nginx"
 EOF

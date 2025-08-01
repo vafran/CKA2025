@@ -1,12 +1,12 @@
 #!/bin/bash
 
-if ! kubectl get gateway my-gateway &> /dev/null; then
-    echo "'my-gateway' Gateway resource not found."
+if ! kubectl get gateway nginx-gateway &> /dev/null; then
+    echo "'nginx-gateway' Gateway resource not found."
     exit 1
 fi
 
-if ! kubectl get gateway my-gateway -o json | grep '"gatewayClassName": "my-gateway-class"' &> /dev/null; then
-    echo "'my-gateway' does not use 'my-gateway-class' as gatewayClassName."
+if ! kubectl get gateway nginx-gateway -o json | grep '"gatewayClassName": "nginx-gateway-class"' &> /dev/null; then
+    echo "'nginx-gateway' does not use 'nginx-gateway-class' as gatewayClassName."
     exit 1
 fi
 
@@ -15,8 +15,8 @@ if ! kubectl get httproute nginx-httproute &> /dev/null; then
     exit 1
 fi
 
-if ! kubectl get httproute nginx-httproute -o json | grep '"name": "my-gateway"' &> /dev/null; then
-    echo "HTTPRoute does not reference 'my-gateway'."
+if ! kubectl get httproute nginx-httproute -o json | grep '"name": "nginx-gateway"' &> /dev/null; then
+    echo "HTTPRoute does not reference 'nginx-gateway'."
     exit 1
 fi
 
@@ -31,6 +31,19 @@ if ! kubectl get httproute nginx-httproute -o json | grep '"name": "nginx-servic
 fi
 if ! kubectl get httproute nginx-httproute -o json | grep '"port": 80' &> /dev/null; then
     echo "HTTPRoute does not route to port 80."
+    exit 1
+fi
+
+GATEWAY_IP=$(kubectl get gateway nginx-gateway -o jsonpath='{.status.addresses[0].value}')
+
+if [ -z "$GATEWAY_IP" ]; then
+    echo "Could not determine Gateway IP address."
+    exit 1
+fi
+
+
+if ! curl -s --max-time 5 "http://$GATEWAY_IP/" | grep -i nginx &> /dev/null; then
+    echo "Gateway is not routing traffic to nginx backend."
     exit 1
 fi
 
